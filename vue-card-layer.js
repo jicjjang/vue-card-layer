@@ -1,32 +1,26 @@
-import Card from './src/components/Card.vue'
-import CardList from './src/components/CardList.vue'
+
 import Layer from './src/components/Layer.vue'
 
 const VueCardLayer = {
   install (Vue, options) {
-    Vue.component("Card", {
-      extends: Card,
-      config: Object.assign({
-
-      }, options.card)
-    })
-    Vue.component("CardList", {
-      extends: CardList,
-      config: Object.assign({
-
-      }, options.cardList)
-    })
-    Vue.component("Layer", {
+    Vue.component("VueCardLayer", {
       extends: Layer,
-      config: Object.assign({
-
-      }, options.layer)
+      config: {
+        style: {
+          card: Object.assign({
+            width: '300px',
+            height: '350px'
+          }, options.style && options.style.card && {}),
+          cardList: Object.assign({
+            width: 'inherit'
+          }, options.style && options.style.cardList && {}),
+          layer: Object.assign({
+            width: '1024px'
+          }, options.style && options.style.layer && {}),
+        }
+      }
     })
   }
-}
-
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(VueCardLayer)
 }
 
 export default VueCardLayer

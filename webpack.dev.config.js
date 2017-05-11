@@ -14,6 +14,11 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.less$/,
+        loader: 'less-loader',
+        exclude: /node_modules/
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
