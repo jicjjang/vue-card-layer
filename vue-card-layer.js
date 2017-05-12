@@ -1,22 +1,18 @@
 
-import Layer from './src/components/Layer.vue'
+import CardList from './src/components/CardList.vue'
 
 const VueCardLayer = {
   install (Vue, options) {
     Vue.component("VueCardLayer", {
-      extends: Layer,
+      extends: CardList,
       config: {
         style: {
           card: Object.assign({
-            width: '300px',
-            height: '350px'
-          }, options.style && options.style.card && {}),
+
+          }, options && options.card && {}),
           cardList: Object.assign({
-            width: 'inherit'
-          }, options.style && options.style.cardList && {}),
-          layer: Object.assign({
-            width: '1024px'
-          }, options.style && options.style.layer && {}),
+            
+          }, options && options.cardList && {})
         }
       }
     })
