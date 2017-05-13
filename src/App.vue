@@ -65,5 +65,15 @@
   }
 </script>
 
-<style lang="css">
+<style lang="less">
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    width: inherit;
+    height: inherit;
+    margin: 0;
+    padding: 0;
+  }
 </style>

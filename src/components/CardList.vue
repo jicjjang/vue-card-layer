@@ -1,30 +1,30 @@
 <template>
-  <transition name="cardList">
-    <div class="card-list__container" :style="styles" v-if="isShow">
-      <template v-for="(content, index) in contents">
-        <Card :content="content" :config="config" :index="index" :toggleShow="toggleShow"></Card>
-      </template>
-    </div>
-    <div class="" v-else>
-      <CardDetail></CardDetail>
-    </div>
-  </transition>
+  <div class="card-list__container" :style="styles" key="card-list">
+    <Card v-for="(content, index) in contents"
+      :content="content"
+      :config="config"
+      :index="index"
+      :toggleCard="toggleCard"
+      key="index"
+      ></Card>
+  </div>
 </template>
 
 <script>
   import Card from './Card.vue'
-  import CardDetail from './CardDetail.vue'
 
   export default {
     props: ['contents'],
     components: {
-      Card,
-      CardDetail
+      Card
     },
     data: () => {
       return {
         config: null,
-        isShow: true
+        scrollPath: {
+          x: 0,
+          y: 0
+        }
       }
     },
     computed: {
@@ -33,9 +33,28 @@
       }
     },
     methods: {
-      toggleShow(index) {
-        console.log(index)
-        this.isShow = !this.isShow
+      toggleCard(index) {
+        if (document.getElementById(`card${index}`).classList.contains("choice")) {
+          this.contents.map((v, k) => {
+            if (k !== index) {
+              document.getElementById(`card${k}`).classList.remove("notChoice")
+            }
+          })
+          document.getElementById(`card${index}`).classList.remove("choice")
+          window.scrollTo(this.scrollPath.x, this.scrollPath.y)
+          this.scrollPath.x = 0
+          this.scrollPath.y = 0
+        } else {
+          this.scrollPath.x = window.scrollX
+          this.scrollPath.y = window.scrollY
+          this.contents.map((v, k) => {
+            if (k !== index) {
+              document.getElementById(`card${k}`).classList.add("notChoice")
+            }
+          })
+          document.getElementById(`card${index}`).classList.add("choice")
+          window.scrollTo(0, 0)
+        }
       }
     },
     created() {
@@ -45,15 +64,10 @@
 </script>
 
 <style lang="less" scoped>
-  .cardList-enter-active, .cardList-leave-active {
-    transition: opacity .5s
-  }
-  .cardList-enter, .cardList-leave-to {
-    opacity: 0
-  }
-
   .card-list__container {
     max-width: 1152px;
+    width: inherit;
+    height: inherit;
     margin: 0 auto;
     background-color: #DFDFDF;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="card__container" :style="styles" @click="toggleShow(index)">
+  <div class="card__container" :id="`card${index}`" :style="styles" @click="toggleCard(index)">
     <div class="card__image">
       <img :src="content.path" :alt="content.title">
     </div>
@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    props: ['content', 'config', 'index', 'toggleShow'],
+    props: ['content', 'config', 'index', 'toggleCard'],
     computed: {
       styles() {
         return this.config.style.card? this.config.style.card: ''
@@ -28,12 +28,26 @@
     vertical-align: top;
     background-color: #fff;
     border-radius: 12px;
+    &.choice {
+      width: 100%;
+      height: 1500px;
+      margin: 0;
+      padding: 0;
+      & > .card__image {
+        width: initial;
+        height: initial;
+      }
+    }
+    &.notChoice {
+      display: none;
+    }
     &:hover {
       cursor: pointer;
     }
     & > .card__image {
       width: 364px;
       height: 240px;
+      font-size: 0;
       & > img {
         width: 100%;
         height: 100%;
