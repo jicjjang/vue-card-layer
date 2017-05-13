@@ -35,8 +35,8 @@
             path: '../assets/images/5.png'
           },
           {
-            title: 'Maxico',
-            description: 'This is Maxico flag',
+            title: 'Mexico',
+            description: 'This is Mexico flag',
             path: '../assets/images/6.png'
           },
           {
