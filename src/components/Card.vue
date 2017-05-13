@@ -1,5 +1,5 @@
 <template>
-  <div class="card__container" :id="`card${index}`" :style="styles" @click="toggleCard(index)">
+  <div class="card__container" :id="`card${index}`" :style="styles" @click.prevent.stop="toggleCard(index)">
     <div class="card__image">
       <img :src="content.path" :alt="content.title">
     </div>
@@ -12,12 +12,7 @@
 
 <script>
   export default {
-    props: ['content', 'config', 'index', 'toggleCard'],
-    computed: {
-      styles() {
-        return this.config.style.card? this.config.style.card: ''
-      }
-    }
+    props: ['content', 'index', 'toggleCard', 'styles']
   }
 </script>
 
@@ -28,25 +23,36 @@
     vertical-align: top;
     background-color: #fff;
     border-radius: 12px;
+    overflow: hidden;
+    opacity: 1;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
     &.choice {
-      width: 100%;
-      height: 1500px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      min-height: 1200px !important;
       margin: 0;
-      padding: 0;
+      -webkit-transition: width 0.75s, height 0.5s ease-in-out;
+      transition: width 0.75s, height 0.5s ease-in-out;
       & > .card__image {
         width: initial;
         height: initial;
       }
     }
     &.notChoice {
-      display: none;
+      opacity: 0;
+      &.done {
+        display: none;
+      }
     }
     &:hover {
       cursor: pointer;
     }
     & > .card__image {
-      width: 364px;
-      height: 240px;
+      width: 100%;
+      height: 74%;
       font-size: 0;
       & > img {
         width: 100%;
@@ -56,7 +62,6 @@
       }
     }
     & > .card__content {
-      height: 80px;
       padding: 10px 20px;
       border-top: 1px solid #DFDFDF;
       font-family: 'Lato', sans-serif;

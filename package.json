@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "",
-    "dev": "webpack-dev-server --config webpack.dev.config.js"
+    "dev": "webpack-dev-server --config webpack.dev.config.js",
+    "dist": "webpack --config webpack.config.js --optimize-minimize"
   },
   "repository": {
     "type": "git",
@@ -40,5 +41,8 @@
     "vue-template-compiler": "^2.3.3",
     "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5"
+  },
+  "directories": {
+    "test": "test"
   }
 }
