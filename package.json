@@ -1,6 +1,6 @@
 {
   "name": "vue-card-layer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "vue-card-layer",
   "main": "src/index.js",
   "scripts": {

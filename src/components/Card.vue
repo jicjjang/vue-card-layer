@@ -1,5 +1,5 @@
 <template>
-  <div class="card__container" :id="`card${index}`" :style="styles" @click.prevent.stop="toggleCard(index)">
+  <div class="card__container" :id="`card${index}`" ref="card_container" :style="styles" @click.prevent.stop="toggleCard(index)">
     <div class="card__image">
       <img :src="content.path" :alt="content.title">
     </div>

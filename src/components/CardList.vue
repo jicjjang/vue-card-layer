@@ -30,9 +30,9 @@
       }
     },
     methods: {
-      _removeSpecificClassName(id, removeValue) {
-        let tempCard = document.getElementById(id)
-        tempCard.className = tempCard.className.split(' ').filter((v2) => {
+      _removeSpecificClassName(index, removeValue) {
+        let choicedCard = this.$children[index].$refs.card_container
+        choicedCard.className = choicedCard.className.split(' ').filter((v2) => {
           if (v2 === removeValue) {
             return false
           }
@@ -40,18 +40,19 @@
         }).join(' ')
       },
       toggleCard(index) {
-        if (document.getElementById(`card${index}`).className.includes("choice")) {
+        let choicedCard = this.$children[index].$refs.card_container
+        if (choicedCard.className.includes("choice")) {
           this.contents.map((v, k) => {
             if (k !== index) {
-              this._removeSpecificClassName(`card${k}`, 'done')
+              this._removeSpecificClassName(k, 'done')
             }
           })
           setTimeout(() => {
             this.contents.map((v, k) => {
-              this._removeSpecificClassName(`card${k}`, 'notChoice')
+              this._removeSpecificClassName(k, 'notChoice')
             })
           }, 500)
-          this._removeSpecificClassName(`card${index}`, 'choice')
+          this._removeSpecificClassName(index, 'choice')
           window.scrollTo(this.scrollPath.x, this.scrollPath.y)
           this.scrollPath.x = 0
           this.scrollPath.y = 0
@@ -60,19 +61,19 @@
           this.scrollPath.y = window.scrollY
           return new Promise((resolve, reject) => {
             this.contents.map((v, k) => {
-              document.getElementById(`card${k}`).className += " notChoice"
+              this.$children[k].$refs.card_container.className += " notChoice"
             })
             setTimeout(() => {
               resolve()
             }, 1000)
           }).then(() => {
             window.scrollTo(0, 0)
-            document.getElementById(`card${index}`).className = "card__container choice"
+            this.$children[index].$refs.card_container.className = "card__container choice"
           }).then(() => {
             setTimeout(() => {
               return this.contents.map((v, k) => {
                 if (k !== index) {
-                  document.getElementById(`card${k}`).className += " done"
+                  this.$children[k].$refs.card_container.className += " done"
                 }
               })
             }, 750)
