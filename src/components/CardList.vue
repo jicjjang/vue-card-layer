@@ -30,19 +30,28 @@
       }
     },
     methods: {
+      _removeSpecificClassName(id, removeValue) {
+        let tempCard = document.getElementById(id)
+        tempCard.className = tempCard.className.split(' ').filter((v2) => {
+          if (v2 === removeValue) {
+            return false
+          }
+          return true
+        }).join(' ')
+      },
       toggleCard(index) {
-        if (document.getElementById(`card${index}`).classList.contains("choice")) {
+        if (document.getElementById(`card${index}`).className.includes("choice")) {
           this.contents.map((v, k) => {
             if (k !== index) {
-              document.getElementById(`card${k}`).classList.remove("done")
+              this._removeSpecificClassName(`card${k}`, 'done')
             }
           })
           setTimeout(() => {
             this.contents.map((v, k) => {
-              document.getElementById(`card${k}`).classList.remove("notChoice")
+              this._removeSpecificClassName(`card${k}`, 'notChoice')
             })
           }, 500)
-          document.getElementById(`card${index}`).classList.remove("choice")
+          this._removeSpecificClassName(`card${index}`, 'choice')
           window.scrollTo(this.scrollPath.x, this.scrollPath.y)
           this.scrollPath.x = 0
           this.scrollPath.y = 0
@@ -51,7 +60,7 @@
           this.scrollPath.y = window.scrollY
           return new Promise((resolve, reject) => {
             this.contents.map((v, k) => {
-              document.getElementById(`card${k}`).classList.add("notChoice")
+              document.getElementById(`card${k}`).className += " notChoice"
             })
             setTimeout(() => {
               resolve()
@@ -63,7 +72,7 @@
             setTimeout(() => {
               return this.contents.map((v, k) => {
                 if (k !== index) {
-                  document.getElementById(`card${k}`).classList.add("done")
+                  document.getElementById(`card${k}`).className += " done"
                 }
               })
             }, 750)
